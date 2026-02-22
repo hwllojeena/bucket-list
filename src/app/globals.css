@@ -1,26 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fffafa;
+  --foreground: #2d1a1a;
+  --primary: #d4145a;
+  --primary-foreground: #ffffff;
+  --secondary: #fef2f2;
+  --secondary-foreground: #d4145a;
+  --accent: #f59e0b;
+  --accent-foreground: #ffffff;
+  --muted: #fef2f2;
+  --muted-foreground: #991b1b;
+  --border: #fecaca;
+  --font-playfair: 'Playfair Display', serif;
+  --font-outfit: 'Outfit', sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-outfit);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1a0a0a;
+    --foreground: #fff5f5;
+    --primary: #ff4d8d;
+    --primary-foreground: #ffffff;
+    --secondary: #2d1a1a;
+    --secondary-foreground: #ff4d8d;
+    --accent: #fbbf24;
+    --accent-foreground: #1a0a0a;
+    --muted: #2d1a1a;
+    --muted-foreground: #fecaca;
+    --border: #451a1a;
   }
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  font-family: var(--font-outfit);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-playfair);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(212, 20, 90, 0.1);
+}
+
+.dark .glass-card {
+  background: rgba(45, 26, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.heart-gradient {
+  background: linear-gradient(135deg, #d4145a 0%, #ff4d8d 100%);
+}
+
+.gold-text {
+  background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
