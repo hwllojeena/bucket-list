@@ -24,7 +24,7 @@ export default function ProgressBar({ current, total }: ProgressBarProps) {
           transition={{ duration: 0.8, ease: "easeOut" }}
         />
       </div>
-      <p className="text-center text-sm text-muted-foreground mt-2 italic">
+      <p className="text-center text-sm text-muted-foreground mt-2">
         {percentage === 100 ? "Love story complete! ❤️" : "Let's make more memories together..."}
       </p>
     </div>
