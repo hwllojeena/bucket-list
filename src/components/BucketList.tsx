@@ -222,12 +222,12 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mt-32 pb-60 text-center relative"
+                className="mt-60 pb-20 text-center relative"
             >
                 {/* Short vertical connector leading to the quote */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-1 h-32 border-l-4 border-dashed border-primary/10 hidden md:block" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-1 h-60 border-l-4 border-dashed border-primary/10 hidden md:block" />
 
-                <p className="font-indie text-2xl md:text-3xl text-primary/40 italic">
+                <p className="font-serif text-2xl md:text-4xl text-primary/40 italic tracking-wide">
                     and the journey goes on...
                 </p>
             </motion.div>
