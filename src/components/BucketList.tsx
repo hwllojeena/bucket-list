@@ -99,7 +99,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
-                            className={`relative mb-32 md:mb-56 ${isLocked ? 'grayscale blur-[1px]' : ''}`}
+                            className={`relative ${islandIndex === milestoneIslands.length - 1 ? 'mb-0' : 'mb-32 md:mb-56'} ${isLocked ? 'grayscale blur-[1px]' : ''}`}
                         >
                             {/* Island Header */}
                             <div className="text-center mb-12 relative">
@@ -225,7 +225,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                 className="mt-32 pb-60 text-center relative"
             >
                 {/* Short vertical connector leading to the quote */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-1 h-20 border-l-4 border-dashed border-primary/10 hidden md:block" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-1 h-32 border-l-4 border-dashed border-primary/10 hidden md:block" />
 
                 <p className="font-indie text-2xl md:text-3xl text-primary/40 italic">
                     and the journey goes on...
