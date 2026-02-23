@@ -67,7 +67,13 @@ export function useBucketList() {
             try {
                 const saved = await getItems();
                 if (saved && saved.length > 0) {
-                    setItems(saved);
+                    // Merge saved items with INITIAL_ITEMS to ensure all 50 are visible
+                    // even if the user's DB only has old data (e.g. 20 items)
+                    const mergedItems = INITIAL_ITEMS.map(initialItem => {
+                        const savedItem = saved.find(s => s.id === initialItem.id);
+                        return savedItem ? { ...initialItem, ...savedItem } : initialItem;
+                    });
+                    setItems(mergedItems);
                 }
                 const savedVouchers = await getVouchers();
                 if (savedVouchers && savedVouchers.length > 0) {
