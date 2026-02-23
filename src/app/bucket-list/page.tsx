@@ -33,7 +33,7 @@ export default function SequentialListPage() {
                         Dear <span className="text-primary italic">Aldo,</span>
                     </h1>
                     <p className="text-muted-foreground max-w-lg mx-auto text-lg opacity-80 backdrop-blur-sm">
-                        A visual journey through our 50 adventures. <br />
+                        This is a visual journey through our 50 adventures. <br />
                         Scroll down to explore our path...
                     </p>
                 </header>
