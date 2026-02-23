@@ -120,15 +120,17 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                         `}
                                     >
                                         <motion.div
-                                            whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 2 : -2 } : {}}
-                                            className={`relative group mx-auto w-full max-w-[320px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+                                            whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 1.5 : -1.5 } : {}}
+                                            className={`relative group mx-auto w-full max-w-[340px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                                         >
-                                            {/* Base Card Shadow & Paper Feel */}
-                                            <div className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-0 relative overflow-hidden flex flex-col h-full border border-zinc-100">
+                                            {/* Base Card - Matches the physical shape of a Polaroid */}
+                                            <div className="bg-[#fdfdfd] shadow-[0_10px_30px_rgba(0,0,0,0.12)] p-4 md:p-5 relative overflow-hidden flex flex-col h-full border border-zinc-100/50 rounded-sm">
 
-                                                {/* Photo Section (Top Square) */}
-                                                <div className="relative w-full aspect-square bg-zinc-50 overflow-hidden">
-                                                    {/* The uploaded photo */}
+                                                {/* Subtle Paper Texture Overlay for the whole card */}
+                                                <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
+
+                                                {/* Photo Slot (Perfect Square) */}
+                                                <div className="relative w-full aspect-square bg-[#332e2e] overflow-hidden shadow-inner">
                                                     {item.photoUrl ? (
                                                         <motion.img
                                                             initial={{ opacity: 0 }}
@@ -138,55 +140,44 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                                         />
                                                     ) : (
-                                                        /* Camera/Upload Placeholder */
-                                                        <div className="w-full h-full flex flex-col items-center justify-center p-8 text-zinc-300">
-                                                            <div className="w-16 h-16 rounded-full border-2 border-dashed border-zinc-200 flex items-center justify-center mb-4">
-                                                                <Camera className="w-8 h-8 opacity-20" />
-                                                            </div>
+                                                        /* Camera/Upload Placeholder - Centered text like reference */
+                                                        <div className="w-full h-full flex flex-col items-center justify-center p-8 text-zinc-400/80">
+                                                            <span className="text-xl md:text-2xl font-sans tracking-tight opacity-90">uploaded photo here</span>
                                                             <button
                                                                 onClick={() => !item.locked && handleUploadClick(item.id)}
-                                                                className="heart-gradient text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg hover:scale-110 active:scale-95 transition-all opacity-0 group-hover:opacity-100"
+                                                                className="mt-4 heart-gradient text-white px-5 py-2 rounded-full text-xs font-bold shadow-lg hover:scale-110 active:scale-95 transition-all opacity-0 group-hover:opacity-101"
                                                             >
-                                                                Add Photo
+                                                                Select Image
                                                             </button>
                                                         </div>
                                                     )}
 
-                                                    {/* Polaroid Template Overlay for textures and cutout edges */}
+                                                    {/* Polaroid Template Overlay for realistic edges/cutout shadow */}
                                                     <img
                                                         src="/images/polaroid-template-transparent.png"
-                                                        className="absolute inset-0 w-full h-full pointer-events-none mix-blend-multiply opacity-90 shadow-inner"
+                                                        className="absolute inset-0 w-full h-full pointer-events-none mix-blend-multiply opacity-40"
                                                         alt=""
                                                     />
                                                 </div>
 
-                                                {/* Text Section (Bottom White Area) */}
-                                                <div className="p-4 md:p-6 pb-8 text-center flex-1 flex flex-col justify-center min-h-[100px] bg-white relative">
-                                                    {/* Subtle Grain Texture Over Text Area */}
-                                                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
-
-                                                    <div className="relative">
-                                                        <div className="flex items-center justify-center gap-1 mb-1 opacity-40">
-                                                            <span className="text-[9px] font-bold uppercase tracking-widest text-zinc-500">#{item.id}</span>
-                                                            {item.completed && <Sparkles className="w-3 h-3 text-primary animate-pulse" />}
-                                                        </div>
-                                                        <h3 className={`text-2xl md:text-3xl font-indie text-zinc-800 leading-tight ${item.locked ? 'text-zinc-400' : ''}`}>
-                                                            {item.title}
-                                                        </h3>
-                                                    </div>
+                                                {/* Task Text Section (Thick Bottom Border) */}
+                                                <div className="pt-6 pb-6 md:pt-8 md:pb-10 text-center relative flex-1 flex items-center justify-center">
+                                                    <h3 className={`text-2xl md:text-3xl font-indie text-[#ef4444] leading-tight ${item.locked ? 'text-zinc-400' : ''}`}>
+                                                        {item.title}
+                                                    </h3>
                                                 </div>
-                                            </div>
 
-                                            {/* Completion Checkmark Badge (Floating) */}
-                                            {item.completed && (
-                                                <motion.div
-                                                    initial={{ scale: 0 }}
-                                                    animate={{ scale: 1 }}
-                                                    className="absolute -top-3 -right-3 w-10 h-10 rounded-full heart-gradient flex items-center justify-center text-white shadow-lg z-20 border-2 border-white"
-                                                >
-                                                    <CheckCircle2 className="w-6 h-6" />
-                                                </motion.div>
-                                            )}
+                                                {/* Completion Stamp/Badge - Small & Clean */}
+                                                {item.completed && (
+                                                    <motion.div
+                                                        initial={{ scale: 0, rotate: -20 }}
+                                                        animate={{ scale: 1, rotate: -15 }}
+                                                        className="absolute top-2 right-2 w-10 h-10 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center text-primary z-20"
+                                                    >
+                                                        <CheckCircle2 className="w-6 h-6" />
+                                                    </motion.div>
+                                                )}
+                                            </div>
                                         </motion.div>
                                     </div>
                                 );
