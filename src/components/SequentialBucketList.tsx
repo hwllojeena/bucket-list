@@ -168,7 +168,7 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
             >
                 {/* Short vertical connector leading to the quote */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-1 h-60 border-l-4 border-dashed border-primary/10 hidden md:block" />
-                <p className="font-indie text-3xl md:text-5xl text-primary/30">
+                <p className="font-indie text-xl md:text-2xl text-[#ef4444]/60">
                     and the journey goes on...
                 </p>
             </motion.div>
