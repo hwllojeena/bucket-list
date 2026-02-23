@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -13,11 +13,14 @@
   --muted: #fef2f2;
   --muted-foreground: #991b1b;
   --border: #fecaca;
-  --font-playfair: 'Playfair Display', serif;
+  --font-indie: 'Indie Flower', cursive;
   --font-outfit: 'Outfit', sans-serif;
 }
 
-@theme inline {
+@theme {
+  --font-serif: "Indie Flower", cursive;
+  --font-sans: "Outfit", sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
@@ -29,8 +32,6 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
-  --font-serif: var(--font-playfair);
-  --font-sans: var(--font-outfit);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -58,8 +59,14 @@ body {
 h1,
 h2,
 h3,
-h4 {
-  font-family: var(--font-playfair);
+h4,
+h5,
+h6 {
+  font-family: var(--font-indie);
+}
+
+.rose-text {
+  color: var(--primary);
 }
 
 .glass-card {

@@ -104,9 +104,6 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                             <div className="inline-block px-6 py-2 rounded-full heart-gradient text-white text-xs font-bold tracking-widest uppercase mb-4 shadow-lg">
                                 Adventure Set {islandIndex + 1}
                             </div>
-                            <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary italic">
-                                {isLocked ? 'A Secret Chapter...' : `Chapter ${islandIndex + 1}: The Journey Continues`}
-                            </h2>
                         </div>
 
                         {/* Island Grid Layout */}
@@ -190,13 +187,6 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                 viewport={{ once: true }}
                                 className="z-20 w-full max-w-md"
                             >
-                                <div className="mb-8 text-center">
-                                    <div className="inline-flex items-center justify-center gap-3 py-2 px-4 rounded-2xl bg-primary/5 border border-primary/10 mb-4">
-                                        <Gift className="w-5 h-5 text-primary" />
-                                        <span className="text-sm font-bold text-primary uppercase tracking-widest">Island {islandIndex + 1} Secret</span>
-                                    </div>
-                                    <p className="text-xs text-muted-foreground italic">Finish all 5 adventures to reveal your reward</p>
-                                </div>
 
                                 <VoucherCard
                                     voucher={vouchers[islandIndex]}

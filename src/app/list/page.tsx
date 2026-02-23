@@ -31,20 +31,9 @@ export default function ListPage() {
 
                 {/* Header */}
                 <header className="text-center mb-24 relative">
-                    <motion.div
-                        initial={{ scale: 0, rotate: -180 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                        className="w-20 h-20 heart-gradient rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl relative z-10"
-                    >
-                        <Heart className="text-white w-10 h-10 fill-white animate-pulse" />
-                    </motion.div>
 
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-primary/20 blur-[60px] rounded-full -z-10" />
-
-                    <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 tracking-tight">
-                        Our <span className="text-primary italic">Everlasting</span> <br />
-                        <span className="rose-text">Roadmap</span>
+                    <h1 className="text-6xl md:text-8xl font-serif font-bold mb-6 tracking-tight">
+                        Dear <span className="text-primary">Aldo,</span>
                     </h1>
 
                     <p className="text-muted-foreground max-w-lg mx-auto italic text-lg opacity-80">
@@ -55,10 +44,6 @@ export default function ListPage() {
 
                 {/* Progress Bar (Pinned but subtle) */}
                 <div className="sticky top-4 z-40 mb-20 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md p-4 rounded-3xl border border-white/20 shadow-lg max-w-2xl mx-auto">
-                    <div className="flex items-center justify-between mb-2 px-2">
-                        <span className="text-xs font-bold uppercase tracking-widest text-primary">Journey Progress</span>
-                        <span className="text-xs font-bold text-primary">{completedCount}/50 Captured</span>
-                    </div>
                     <ProgressBar current={completedCount} total={50} />
                 </div>
 

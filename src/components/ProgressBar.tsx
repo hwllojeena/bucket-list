@@ -11,9 +11,9 @@ export default function ProgressBar({ current, total }: ProgressBarProps) {
   const percentage = Math.min((current / total) * 100, 100);
 
   return (
-    <div className="w-full max-w-md mx-auto mb-8 px-4">
+    <div className="w-full max-w-md mx-auto px-4">
       <div className="flex justify-between items-end mb-2">
-        <span className="text-primary font-serif italic text-lg tracking-wide">Gina & Aldo's Journey</span>
+        <span className="text-primary font-serif text-lg tracking-wide">Gina & Aldo's Journey</span>
         <span className="text-primary font-bold">{current} / {total}</span>
       </div>
       <div className="h-4 w-full bg-secondary rounded-full overflow-hidden border border-border">
