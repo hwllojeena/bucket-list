@@ -102,7 +102,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                         {/* Island Header */}
                         <div className="text-center mb-12 relative">
                             <div className="inline-block px-6 py-2 rounded-full heart-gradient text-white text-xs font-bold tracking-widest uppercase mb-4 shadow-lg">
-                                Adventure Set {islandIndex + 1}
+                                Chapter {islandIndex + 1}
                             </div>
                         </div>
 
@@ -141,7 +141,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                                         />
                                                     ) : (
                                                         <div className="w-full h-full flex items-center justify-center p-8 text-center cursor-pointer" onClick={() => !item.locked && handleUploadClick(item.id)}>
-                                                            <span className="text-sm md:text-base font-sans tracking-tight text-white/20 uppercase group-hover:text-white/40 transition-colors">uploaded photo here</span>
+                                                            <span className="text-sm md:text-base font-sans tracking-tight text-white/20 uppercase group-hover:text-white/40 transition-colors">upload photo here</span>
                                                         </div>
                                                     )}
 
@@ -168,7 +168,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                                 )}
 
                                                 {/* Hidden Upload Button Cover (when no photo) */}
-                                                {!item.photoUrl && !item.locked && (
+                                                {!item.locked && (
                                                     <button
                                                         onClick={() => handleUploadClick(item.id)}
                                                         className="absolute inset-0 w-full h-full z-40 opacity-0 cursor-pointer"
