@@ -14,7 +14,7 @@ export default function PasscodePage() {
   const combination = "1402";
 
   const handleUnlock = () => {
-    router.push('/list');
+    router.push('/bucket-list');
   };
 
   return (
