@@ -120,17 +120,22 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                         `}
                                     >
                                         <motion.div
-                                            whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 1.5 : -1.5 } : {}}
-                                            className={`relative group mx-auto w-full max-w-[340px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+                                            whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 1 : -1 } : {}}
+                                            className={`relative mx-auto w-full max-w-[360px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                                         >
-                                            {/* Base Card - Matches the physical shape of a Polaroid */}
-                                            <div className="bg-[#fdfdfd] shadow-[0_10px_30px_rgba(0,0,0,0.12)] p-4 md:p-5 relative overflow-hidden flex flex-col h-full border border-zinc-100/50 rounded-sm">
+                                            {/* Container with square aspect ratio to match the template (640x640) */}
+                                            <div className="relative aspect-square w-full">
 
-                                                {/* Subtle Paper Texture Overlay for the whole card */}
-                                                <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
-
-                                                {/* Photo Slot (Perfect Square) */}
-                                                <div className="relative w-full aspect-square bg-[#332e2e] overflow-hidden shadow-inner">
+                                                {/* 1. The Photo (Placed UNDER the frame) */}
+                                                <div
+                                                    className="absolute overflow-hidden bg-[#332e2e]"
+                                                    style={{
+                                                        top: '14.5%',
+                                                        left: '20.3%',
+                                                        width: '59.7%',
+                                                        height: '59.8%'
+                                                    }}
+                                                >
                                                     {item.photoUrl ? (
                                                         <motion.img
                                                             initial={{ opacity: 0 }}
@@ -140,42 +145,51 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                                         />
                                                     ) : (
-                                                        /* Camera/Upload Placeholder - Centered text like reference */
-                                                        <div className="w-full h-full flex flex-col items-center justify-center p-8 text-zinc-400/80">
-                                                            <span className="text-xl md:text-2xl font-sans tracking-tight opacity-90">uploaded photo here</span>
-                                                            <button
-                                                                onClick={() => !item.locked && handleUploadClick(item.id)}
-                                                                className="mt-4 heart-gradient text-white px-5 py-2 rounded-full text-xs font-bold shadow-lg hover:scale-110 active:scale-95 transition-all opacity-0 group-hover:opacity-101"
-                                                            >
-                                                                Select Image
-                                                            </button>
+                                                        <div className="w-full h-full flex items-center justify-center p-4 text-center cursor-pointer group" onClick={() => !item.locked && handleUploadClick(item.id)}>
+                                                            <span className="text-xs md:text-sm font-sans tracking-tight text-white/20 uppercase group-hover:text-white/40 transition-colors">uploaded photo here</span>
                                                         </div>
                                                     )}
-
-                                                    {/* Polaroid Template Overlay for realistic edges/cutout shadow */}
-                                                    <img
-                                                        src="/images/polaroid-template-transparent.png"
-                                                        className="absolute inset-0 w-full h-full pointer-events-none mix-blend-multiply opacity-40"
-                                                        alt=""
-                                                    />
                                                 </div>
 
-                                                {/* Task Text Section (Thick Bottom Border) */}
-                                                <div className="pt-6 pb-6 md:pt-8 md:pb-10 text-center relative flex-1 flex items-center justify-center">
-                                                    <h3 className={`text-2xl md:text-3xl font-indie text-[#ef4444] leading-tight ${item.locked ? 'text-zinc-400' : ''}`}>
+                                                {/* 2. The Polaroid Frame (Transparent overlay on top of photo) */}
+                                                <img
+                                                    src="/images/polaroid-template-transparent.png"
+                                                    className="absolute inset-0 w-full h-full pointer-events-none z-10 drop-shadow-2xl"
+                                                    alt=""
+                                                />
+
+                                                {/* 3. The Task Text (Bottom area, on top of frame) */}
+                                                <div
+                                                    className="absolute z-20 flex items-center justify-center text-center px-4"
+                                                    style={{
+                                                        top: '74.5%',
+                                                        left: '16.5%',
+                                                        width: '67.5%',
+                                                        height: '15.5%'
+                                                    }}
+                                                >
+                                                    <h3 className={`text-xl md:text-2xl font-indie text-[#ef4444] leading-tight ${item.locked ? 'text-zinc-400' : ''}`}>
                                                         {item.title}
                                                     </h3>
                                                 </div>
 
-                                                {/* Completion Stamp/Badge - Small & Clean */}
+                                                {/* Completion Checkmark Badge */}
                                                 {item.completed && (
                                                     <motion.div
                                                         initial={{ scale: 0, rotate: -20 }}
                                                         animate={{ scale: 1, rotate: -15 }}
-                                                        className="absolute top-2 right-2 w-10 h-10 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center text-primary z-20"
+                                                        className="absolute top-[10%] right-[16%] w-8 h-8 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center text-primary z-30 shadow-sm"
                                                     >
-                                                        <CheckCircle2 className="w-6 h-6" />
+                                                        <CheckCircle2 className="w-5 h-5" />
                                                     </motion.div>
+                                                )}
+
+                                                {/* Hidden Upload Button for Empty slots */}
+                                                {!item.photoUrl && !item.locked && (
+                                                    <button
+                                                        onClick={() => handleUploadClick(item.id)}
+                                                        className="absolute inset-0 w-full h-full z-40 opacity-0 cursor-pointer"
+                                                    />
                                                 )}
                                             </div>
                                         </motion.div>

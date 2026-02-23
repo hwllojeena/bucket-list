@@ -16,7 +16,7 @@ def make_transparent(img_path, out_path):
     newData = []
     
     # Threshold for "black" pixels
-    threshold = 30 
+    threshold = 80 # More aggressive to catch noise
     
     for item in datas:
         # Check if the pixel is near-black
