@@ -151,7 +151,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
 
                                                 {/* Task Title Section (The thick bottom frame area) */}
                                                 <div className="mt-2 md:mt-4 flex-1 flex items-center justify-center text-center px-2">
-                                                    <h3 className={`text-2xl md:text-4xl font-indie text-[#ef4444] leading-tight break-words ${item.locked ? 'text-zinc-400' : ''}`}>
+                                                    <h3 className={`text-xl md:text-2xl font-indie text-[#ef4444] leading-tight break-words ${item.locked ? 'text-zinc-400' : ''}`}>
                                                         {item.title}
                                                     </h3>
                                                 </div>
