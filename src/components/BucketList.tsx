@@ -97,7 +97,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
-                        className={`relative mb-32 md:mb-56 ${isLocked ? 'opacity-50 grayscale blur-[1px]' : ''}`}
+                        className={`relative mb-32 md:mb-56 ${isLocked ? 'grayscale blur-[1px]' : ''}`}
                     >
                         {/* Island Header */}
                         <div className="text-center mb-12 relative">
@@ -123,7 +123,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                             initial={{ rotate: (item.id % 7 - 3) * 0.2 }}
                                             animate={{ rotate: (item.id % 7 - 3) * 0.2 }}
                                             whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 1 : -1 } : {}}
-                                            className={`relative mx-auto w-full max-w-[400px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+                                            className={`relative mx-auto w-full max-w-[400px] transition-all duration-500 ${item.locked ? 'grayscale pointer-events-none' : ''}`}
                                         >
                                             {/* Physical Polaroid Card (Pure CSS) */}
                                             <div className="bg-[#fdfdfd] shadow-[0_20px_60px_rgba(0,0,0,0.15)] p-4 md:p-5 pb-6 md:pb-10 flex flex-col group relative overflow-hidden border border-zinc-100/50 rounded-sm">
@@ -131,31 +131,34 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                                 {/* Subtle Paper Texture Overlay */}
                                                 <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
 
-                                                {/* Photo Area (Perfect Square) */}
-                                                <div className="relative w-full aspect-square bg-[#332e2e] overflow-hidden shadow-inner flex items-center justify-center">
-                                                    {item.photoUrl ? (
-                                                        <motion.img
-                                                            initial={{ opacity: 0 }}
-                                                            animate={{ opacity: 1 }}
-                                                            src={item.photoUrl}
-                                                            alt={item.title}
-                                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                                        />
-                                                    ) : (
-                                                        <div className="w-full h-full flex items-center justify-center p-8 text-center cursor-pointer" onClick={() => !item.locked && handleUploadClick(item.id)}>
-                                                            <span className="text-sm md:text-base font-sans tracking-tight text-white/20 uppercase group-hover:text-white/40 transition-colors">upload photo here</span>
-                                                        </div>
-                                                    )}
+                                                {/* Content Wrapper (Muted when locked) */}
+                                                <div className={`flex flex-col h-full ${item.locked ? 'opacity-40' : ''}`}>
+                                                    {/* Photo Area (Perfect Square) */}
+                                                    <div className="relative w-full aspect-square bg-[#332e2e] overflow-hidden shadow-inner flex items-center justify-center">
+                                                        {item.photoUrl ? (
+                                                            <motion.img
+                                                                initial={{ opacity: 0 }}
+                                                                animate={{ opacity: 1 }}
+                                                                src={item.photoUrl}
+                                                                alt={item.title}
+                                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                            />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center p-8 text-center cursor-pointer" onClick={() => !item.locked && handleUploadClick(item.id)}>
+                                                                <span className="text-sm md:text-base font-sans tracking-tight text-white/20 uppercase group-hover:text-white/40 transition-colors">upload photo here</span>
+                                                            </div>
+                                                        )}
 
-                                                    {/* Inset Shadow to simulate the cutout depth */}
-                                                    <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none opacity-40" />
-                                                </div>
+                                                        {/* Inset Shadow to simulate the cutout depth */}
+                                                        <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none opacity-40" />
+                                                    </div>
 
-                                                {/* Task Title Section (The thick bottom frame area) */}
-                                                <div className="mt-6 md:mt-10 flex-1 flex items-center justify-center text-center px-2">
-                                                    <h3 className={`text-xl md:text-2xl font-indie text-[#ef4444] leading-tight break-words ${item.locked ? 'text-zinc-400' : ''}`}>
-                                                        {item.title}
-                                                    </h3>
+                                                    {/* Task Title Section (The thick bottom frame area) */}
+                                                    <div className="mt-6 md:mt-10 flex-1 flex items-center justify-center text-center px-2">
+                                                        <h3 className={`text-xl md:text-2xl font-indie text-[#ef4444] leading-tight break-words ${item.locked ? 'text-zinc-400' : ''}`}>
+                                                            {item.title}
+                                                        </h3>
+                                                    </div>
                                                 </div>
 
                                                 {/* Floating Completion Stamp/Badge */}

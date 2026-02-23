@@ -40,46 +40,48 @@ export function VoucherCard({ voucher, isLocked, isUsed, onUse }: VoucherCardPro
     return (
         <motion.div
             whileHover={!isLocked ? { scale: 1.05 } : {}}
-            className={`relative w-full max-w-sm mx-auto ${isLocked ? 'opacity-40 grayscale' : ''}`}
+            className={`relative w-full max-w-sm mx-auto ${isLocked ? 'grayscale' : ''}`}
         >
             <div className="bg-white dark:bg-zinc-900 border-2 border-dashed border-primary/30 p-6 rounded-2xl shadow-xl overflow-hidden group">
-                <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full" />
-                <div className="absolute -left-4 -bottom-4 w-16 h-16 bg-accent/5 rounded-full" />
+                <div className={isLocked ? 'opacity-40' : ''}>
+                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full" />
+                    <div className="absolute -left-4 -bottom-4 w-16 h-16 bg-accent/5 rounded-full" />
 
-                <div className="flex items-center gap-3 mb-4">
-                    <Ticket className={`w-6 h-6 ${isLocked ? 'text-muted-foreground' : 'text-primary'}`} />
-                    <span className="font-bold tracking-widest text-xs uppercase text-primary/60">Milestone Reward</span>
-                </div>
+                    <div className="flex items-center gap-3 mb-4">
+                        <Ticket className={`w-6 h-6 ${isLocked ? 'text-muted-foreground' : 'text-primary'}`} />
+                        <span className="font-bold tracking-widest text-xs uppercase text-primary/60">Milestone Reward</span>
+                    </div>
 
-                <h3 className="text-2xl font-serif text-zinc-800 dark:text-zinc-100 mb-2">{voucher.title}</h3>
-                <p className="text-sm text-muted-foreground mb-6 h-12 leading-relaxed">
-                    {isLocked ? "Complete the next 5 adventures to unlock this gift..." : voucher.description}
-                </p>
+                    <h3 className="text-2xl font-serif text-zinc-800 dark:text-zinc-100 mb-2">{voucher.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-6 h-12 leading-relaxed">
+                        {isLocked ? "Complete the next 5 adventures to unlock this gift..." : voucher.description}
+                    </p>
 
-                <div className="pt-4 border-t border-dashed border-zinc-200 dark:border-zinc-800 flex justify-between items-center">
-                    {!isLocked ? (
-                        <>
-                            <div className="bg-primary/10 px-3 py-1 rounded-md">
-                                <span className="font-mono text-sm font-bold text-primary">{voucher.code}</span>
-                            </div>
-                            {isUsed ? (
-                                <div className="flex items-center gap-2 text-primary font-bold">
-                                    <CheckCircle2 className="w-5 h-5" /> Claimed
+                    <div className="pt-4 border-t border-dashed border-zinc-200 dark:border-zinc-800 flex justify-between items-center">
+                        {!isLocked ? (
+                            <>
+                                <div className="bg-primary/10 px-3 py-1 rounded-md">
+                                    <span className="font-mono text-sm font-bold text-primary">{voucher.code}</span>
                                 </div>
-                            ) : (
-                                <button
-                                    onClick={handleUse}
-                                    className="heart-gradient text-white px-4 py-2 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-2"
-                                >
-                                    Completed <CheckCircle2 className="w-4 h-4" />
-                                </button>
-                            )}
-                        </>
-                    ) : (
-                        <div className="flex items-center gap-2 text-muted-foreground italic text-sm">
-                            <Lock className="w-4 h-4" /> Complete tasks first
-                        </div>
-                    )}
+                                {isUsed ? (
+                                    <div className="flex items-center gap-2 text-primary font-bold">
+                                        <CheckCircle2 className="w-5 h-5" /> Claimed
+                                    </div>
+                                ) : (
+                                    <button
+                                        onClick={handleUse}
+                                        className="heart-gradient text-white px-4 py-2 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-2"
+                                    >
+                                        Completed <CheckCircle2 className="w-4 h-4" />
+                                    </button>
+                                )}
+                            </>
+                        ) : (
+                            <div className="flex items-center gap-2 text-muted-foreground italic text-sm">
+                                <Lock className="w-4 h-4" /> Complete tasks first
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </motion.div>
