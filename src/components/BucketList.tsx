@@ -120,6 +120,8 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                         `}
                                     >
                                         <motion.div
+                                            initial={{ rotate: (item.id % 7 - 3) * 0.2 }}
+                                            animate={{ rotate: (item.id % 7 - 3) * 0.2 }}
                                             whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 1 : -1 } : {}}
                                             className={`relative mx-auto w-full max-w-[400px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                                         >
