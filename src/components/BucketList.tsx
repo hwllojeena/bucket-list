@@ -214,18 +214,16 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                 );
             })}
 
-            {/* Final Message */}
+            {/* Final sentimental message */}
             <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className="mt-20 mb-40 flex flex-col items-center"
+                className="mt-20 pb-40 text-center"
             >
-                <div className="w-1 h-40 border-l-4 border-dashed border-primary/10 relative flex items-center justify-center">
-                    <p className="absolute whitespace-nowrap font-sans text-xl md:text-2xl text-primary/40 italic">
-                        and the journey goes on...
-                    </p>
-                </div>
+                <p className="font-indie text-2xl md:text-3xl text-primary/40 italic">
+                    and the journey goes on...
+                </p>
             </motion.div>
         </div>
     );
