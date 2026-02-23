@@ -29,15 +29,12 @@ export default function SequentialListPage() {
 
                 {/* Header */}
                 <header className="text-center mb-24 relative">
-                    <div className="inline-block p-3 rounded-full bg-primary/5 mb-6">
-                        <Camera className="w-8 h-8 text-primary/40" />
-                    </div>
-                    <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 tracking-tight">
-                        Our <span className="text-primary italic">Continuous</span> Path
+                    <h1 className="text-6xl md:text-8xl font-serif font-bold mb-6 tracking-tight">
+                        Dear <span className="text-primary italic">Aldo,</span>
                     </h1>
                     <p className="text-muted-foreground max-w-lg mx-auto italic text-lg opacity-80 backdrop-blur-sm">
-                        No rewards, no chapters. <br />
-                        Just the two of us and our 50 adventures...
+                        A visual journey through our 50 adventures. <br />
+                        Scroll down to explore our path...
                     </p>
                 </header>
 
