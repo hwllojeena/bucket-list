@@ -121,21 +121,16 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                     >
                                         <motion.div
                                             whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 1 : -1 } : {}}
-                                            className={`relative mx-auto w-full max-w-[380px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+                                            className={`relative mx-auto w-full max-w-[400px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                                         >
-                                            {/* Container with the exact aspect ratio of the cropped template (434x514) */}
-                                            <div className="relative w-full shadow-2xl overflow-hidden" style={{ aspectRatio: '434 / 514' }}>
+                                            {/* Physical Polaroid Card (Pure CSS) */}
+                                            <div className="bg-[#fdfdfd] shadow-[0_20px_60px_rgba(0,0,0,0.15)] p-4 md:p-5 pb-16 md:pb-24 flex flex-col group relative overflow-hidden border border-zinc-100/50 rounded-sm">
 
-                                                {/* 1. The Photo (Placed UNDER the frame) */}
-                                                <div
-                                                    className="absolute overflow-hidden bg-[#332e2e]"
-                                                    style={{
-                                                        top: '5.85%',
-                                                        left: '6.00%',
-                                                        width: '88.22%',
-                                                        height: '74.85%'
-                                                    }}
-                                                >
+                                                {/* Subtle Paper Texture Overlay */}
+                                                <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
+
+                                                {/* Photo Area (Perfect Square) */}
+                                                <div className="relative w-full aspect-square bg-[#332e2e] overflow-hidden shadow-inner flex items-center justify-center">
                                                     {item.photoUrl ? (
                                                         <motion.img
                                                             initial={{ opacity: 0 }}
@@ -145,46 +140,34 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                                         />
                                                     ) : (
-                                                        <div className="w-full h-full flex items-center justify-center p-4 text-center cursor-pointer group" onClick={() => !item.locked && handleUploadClick(item.id)}>
-                                                            <span className="text-xs md:text-sm font-sans tracking-tight text-white/20 uppercase group-hover:text-white/40 transition-colors">uploaded photo here</span>
+                                                        <div className="w-full h-full flex items-center justify-center p-8 text-center cursor-pointer" onClick={() => !item.locked && handleUploadClick(item.id)}>
+                                                            <span className="text-sm md:text-base font-sans tracking-tight text-white/20 uppercase group-hover:text-white/40 transition-colors">uploaded photo here</span>
                                                         </div>
                                                     )}
+
+                                                    {/* Inset Shadow to simulate the cutout depth */}
+                                                    <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none opacity-40" />
                                                 </div>
 
-                                                {/* 2. The Polaroid Frame (Pristine cleaned template) */}
-                                                <img
-                                                    src="/images/polaroid-template-transparent.png"
-                                                    className="absolute inset-0 w-full h-full pointer-events-none z-10"
-                                                    alt=""
-                                                />
-
-                                                {/* 3. The Task Text (On top of the white area at the bottom) */}
-                                                <div
-                                                    className="absolute z-20 flex items-center justify-center text-center px-4"
-                                                    style={{
-                                                        top: '80.7%',
-                                                        left: '6.00%',
-                                                        width: '88.22%',
-                                                        height: '19.3%'
-                                                    }}
-                                                >
-                                                    <h3 className={`text-2xl md:text-3xl lg:text-4xl font-indie text-[#ef4444] leading-tight ${item.locked ? 'text-zinc-400' : ''}`}>
+                                                {/* Task Title Section (The thick bottom frame area) */}
+                                                <div className="mt-6 md:mt-10 flex-1 flex items-center justify-center text-center px-2">
+                                                    <h3 className={`text-2xl md:text-4xl font-indie text-[#ef4444] leading-tight break-words ${item.locked ? 'text-zinc-400' : ''}`}>
                                                         {item.title}
                                                     </h3>
                                                 </div>
 
-                                                {/* Completion Badge */}
+                                                {/* Floating Completion Stamp/Badge */}
                                                 {item.completed && (
                                                     <motion.div
                                                         initial={{ scale: 0, rotate: -20 }}
                                                         animate={{ scale: 1, rotate: -15 }}
-                                                        className="absolute top-[8%] right-[8%] w-8 h-8 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center text-primary z-30 shadow-sm"
+                                                        className="absolute top-2 right-2 w-10 h-10 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center text-primary z-20 shadow-sm"
                                                     >
-                                                        <CheckCircle2 className="w-5 h-5" />
+                                                        <CheckCircle2 className="w-6 h-6" />
                                                     </motion.div>
                                                 )}
 
-                                                {/* Hidden Upload Trigger */}
+                                                {/* Hidden Upload Button Cover (when no photo) */}
                                                 {!item.photoUrl && !item.locked && (
                                                     <button
                                                         onClick={() => handleUploadClick(item.id)}
