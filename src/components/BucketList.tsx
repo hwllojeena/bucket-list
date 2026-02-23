@@ -121,7 +121,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                     >
                                         <motion.div
                                             whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 1 : -1 } : {}}
-                                            className={`relative mx-auto w-full max-w-[360px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+                                            className={`relative mx-auto w-full max-w-[400px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                                         >
                                             {/* Container with square aspect ratio to match the template (640x640) */}
                                             <div className="relative aspect-square w-full">
@@ -168,7 +168,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                                         height: '15.5%'
                                                     }}
                                                 >
-                                                    <h3 className={`text-xl md:text-2xl font-indie text-[#ef4444] leading-tight ${item.locked ? 'text-zinc-400' : ''}`}>
+                                                    <h3 className={`text-2xl md:text-4xl font-indie text-[#ef4444] leading-tight ${item.locked ? 'text-zinc-400' : ''}`}>
                                                         {item.title}
                                                     </h3>
                                                 </div>
