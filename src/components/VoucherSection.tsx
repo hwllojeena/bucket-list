@@ -77,7 +77,7 @@ export function VoucherCard({ voucher, isLocked, isUsed, onUse }: VoucherCardPro
                         </>
                     ) : (
                         <div className="flex items-center gap-2 text-muted-foreground italic text-sm">
-                            <Lock className="w-4 h-4" /> Mystery Gift
+                            <Lock className="w-4 h-4" /> Complete adventures first
                         </div>
                     )}
                 </div>
