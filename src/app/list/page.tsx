@@ -21,7 +21,7 @@ export default function ListPage() {
 
     return (
         <main className="min-h-screen bg-background relative overflow-x-hidden p-4">
-            <div className="max-w-6xl mx-auto pt-16 pb-40">
+            <div className="max-w-6xl mx-auto pt-16 pb-10">
                 {/* Navigation */}
                 <div className="flex justify-start mb-16">
                     <Link href="/" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors italic font-medium">
