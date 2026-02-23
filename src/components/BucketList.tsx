@@ -124,7 +124,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                             className={`relative mx-auto w-full max-w-[400px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                                         >
                                             {/* Physical Polaroid Card (Pure CSS) */}
-                                            <div className="bg-[#fdfdfd] shadow-[0_20px_60px_rgba(0,0,0,0.15)] p-4 md:p-5 pb-16 md:pb-24 flex flex-col group relative overflow-hidden border border-zinc-100/50 rounded-sm">
+                                            <div className="bg-[#fdfdfd] shadow-[0_20px_60px_rgba(0,0,0,0.15)] p-4 md:p-5 pb-12 md:pb-16 flex flex-col group relative overflow-hidden border border-zinc-100/50 rounded-sm">
 
                                                 {/* Subtle Paper Texture Overlay */}
                                                 <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
@@ -150,7 +150,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                                 </div>
 
                                                 {/* Task Title Section (The thick bottom frame area) */}
-                                                <div className="mt-6 md:mt-10 flex-1 flex items-center justify-center text-center px-2">
+                                                <div className="mt-4 md:mt-6 flex-1 flex items-center justify-center text-center px-2">
                                                     <h3 className={`text-2xl md:text-4xl font-indie text-[#ef4444] leading-tight break-words ${item.locked ? 'text-zinc-400' : ''}`}>
                                                         {item.title}
                                                     </h3>
