@@ -96,7 +96,7 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
                                     initial={{ opacity: 0, y: 30, rotate: (item.id % 7 - 3) * 0.2 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.6, delay: (index % 5) * 0.1 }}
+                                    transition={{ duration: 0.6, delay: (Math.floor(index / 2) % 5) * 0.1 + (index % 2 === 0 ? 0 : 0.15) }}
                                     animate={{ rotate: (item.id % 7 - 3) * 0.2 }}
                                     whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 1 : -1 } : {}}
                                     className={`relative w-full max-w-[420px] transition-all duration-500 ${item.locked ? 'grayscale blur-[1px] pointer-events-none' : ''}`}
