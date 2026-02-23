@@ -115,8 +115,8 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                         key={item.id}
                                         className={`
                                             ${isLastInIsland ? 'md:col-span-2 md:max-w-xl md:mx-auto w-full mt-4 md:mt-4' : ''}
-                                            ${!isLastInIsland && itemIdx % 2 === 0 ? 'md:-mt-4' : ''}
-                                            ${!isLastInIsland && itemIdx % 2 !== 0 ? 'md:mt-4' : ''}
+                                            ${!isLastInIsland && itemIdx % 2 === 0 ? 'md:-mt-4 md:translate-x-12' : ''}
+                                            ${!isLastInIsland && itemIdx % 2 !== 0 ? 'md:mt-4 md:-translate-x-12' : ''}
                                         `}
                                     >
                                         <motion.div
