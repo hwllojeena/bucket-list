@@ -22,7 +22,7 @@ export default function SequentialListPage() {
             <div className="max-w-6xl mx-auto pt-16 pb-10">
                 {/* Navigation */}
                 <div className="flex justify-start mb-16">
-                    <Link href="/" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors italic font-medium">
+                    <Link href="/" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors font-medium">
                         <ArrowLeft size={18} /> Back to start
                     </Link>
                 </div>
@@ -32,7 +32,7 @@ export default function SequentialListPage() {
                     <h1 className="text-6xl md:text-8xl font-serif font-bold mb-6 tracking-tight">
                         Dear <span className="text-primary italic">Aldo,</span>
                     </h1>
-                    <p className="text-muted-foreground max-w-lg mx-auto italic text-lg opacity-80 backdrop-blur-sm">
+                    <p className="text-muted-foreground max-w-lg mx-auto text-lg opacity-80 backdrop-blur-sm">
                         A visual journey through our 50 adventures. <br />
                         Scroll down to explore our path...
                     </p>

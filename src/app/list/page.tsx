@@ -24,7 +24,7 @@ export default function ListPage() {
             <div className="max-w-6xl mx-auto pt-16 pb-10">
                 {/* Navigation */}
                 <div className="flex justify-start mb-16">
-                    <Link href="/" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors italic font-medium">
+                    <Link href="/" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors font-medium">
                         <ArrowLeft size={18} /> Exit our universe
                     </Link>
                 </div>
@@ -36,7 +36,7 @@ export default function ListPage() {
                         Dear <span className="text-primary">Aldo,</span>
                     </h1>
 
-                    <p className="text-muted-foreground max-w-lg mx-auto italic text-lg opacity-80">
+                    <p className="text-muted-foreground max-w-lg mx-auto text-lg opacity-80">
                         A visual journey through our 50 adventures. <br />
                         Scroll down to explore our path...
                     </p>
@@ -66,7 +66,7 @@ export default function ListPage() {
                     >
                         <Stars className="w-12 h-12 text-accent mx-auto mb-6 animate-spin-slow" />
                         <h2 className="text-4xl font-serif font-bold text-primary mb-4">Our Journey is Infinite</h2>
-                        <p className="italic text-muted-foreground">Every end is just a new beginning for us. I love you, Aldo. ❤️</p>
+                        <p className="text-muted-foreground">Every end is just a new beginning for us. I love you, Aldo. ❤️</p>
                     </motion.div>
                 )}
             </div>
