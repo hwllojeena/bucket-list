@@ -124,7 +124,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                             className={`relative mx-auto w-full max-w-[400px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                                         >
                                             {/* Physical Polaroid Card (Pure CSS) */}
-                                            <div className="bg-[#fdfdfd] shadow-[0_20px_60px_rgba(0,0,0,0.15)] p-4 md:p-5 pb-12 md:pb-16 flex flex-col group relative overflow-hidden border border-zinc-100/50 rounded-sm">
+                                            <div className="bg-[#fdfdfd] shadow-[0_20px_60px_rgba(0,0,0,0.15)] p-4 md:p-5 pb-10 md:pb-16 flex flex-col group relative overflow-hidden border border-zinc-100/50 rounded-sm">
 
                                                 {/* Subtle Paper Texture Overlay */}
                                                 <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
