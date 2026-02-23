@@ -76,7 +76,7 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
                 onChange={handleFileChange}
             />
 
-            {/* Scoped Journey Grid */}
+            {/* Scoped Journey Grid Area (Line stops here) */}
             <div className="relative">
                 {/* Central Path Line */}
                 <div className="absolute left-1/2 top-0 bottom-0 w-1 border-l-4 border-dashed border-primary/10 -translate-x-1/2 hidden md:block" />
@@ -88,9 +88,9 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
                             <div
                                 key={item.id}
                                 className={`
-                                flex flex-col items-center
-                                ${isEven ? 'md:translate-x-12' : 'md:-translate-x-12 md:mt-24'}
-                            `}
+                                    flex flex-col items-center
+                                    ${isEven ? 'md:translate-x-12' : 'md:-translate-x-12 md:mt-24'}
+                                `}
                             >
                                 <motion.div
                                     initial={{ opacity: 0, y: 30, rotate: (item.id % 7 - 3) * 0.2 }}
@@ -120,7 +120,7 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
                                                     />
                                                 ) : (
                                                     <div className="w-full h-full flex items-center justify-center p-8 text-center cursor-pointer" onClick={() => !item.locked && handleUploadClick(item.id)}>
-                                                        <span className="text-xs font-sans tracking-widest text-white/20 uppercase group-hover:text-white/40 transition-colors">upload photo here</span>
+                                                        <span className="text-xs font-sans tracking-tight text-white/20 uppercase group-hover:text-white/40 transition-colors">upload photo here</span>
                                                     </div>
                                                 )}
                                                 <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none opacity-40" />
@@ -157,19 +157,21 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
                         );
                     })}
                 </div>
-
-                {/* Final sentimental message */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mt-60 pb-10 text-center relative"
-                >
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-1 h-60 border-l-4 border-dashed border-primary/10 hidden md:block" />
-                    <p className="font-indie text-3xl md:text-5xl text-primary/30">
-                        and the journey goes on...
-                    </p>
-                </motion.div>
             </div>
-            );
+
+            {/* Final sentimental message - Now outside the grid's line scope */}
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mt-60 pb-10 text-center relative"
+            >
+                {/* Short vertical connector leading to the quote */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-1 h-60 border-l-4 border-dashed border-primary/10 hidden md:block" />
+                <p className="font-indie text-3xl md:text-5xl text-primary/30">
+                    and the journey goes on...
+                </p>
+            </motion.div>
+        </div>
+    );
 }
