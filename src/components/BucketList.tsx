@@ -120,57 +120,73 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                         `}
                                     >
                                         <motion.div
-                                            whileHover={!item.locked ? { scale: 1.02, rotate: islandIndex % 2 === 0 ? 1 : -1 } : {}}
-                                            className={`glass-card rounded-[2.5rem] p-6 md:p-8 relative overflow-hidden transition-all duration-500 border-2 ${item.completed ? 'border-primary/40 bg-primary/5' :
-                                                item.locked ? 'border-transparent opacity-60' : 'border-white/50 shadow-xl'
-                                                }`}
+                                            whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 2 : -2 } : {}}
+                                            className={`relative group mx-auto w-full max-w-[320px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                                         >
-                                            <div className="flex justify-between items-start gap-4">
-                                                <div className="flex-1">
-                                                    <div className="flex items-center gap-2 mb-3">
-                                                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
-                                                            Memory {item.id}
-                                                        </span>
-                                                        {item.locked && <Lock className="w-3 h-3 text-muted-foreground" />}
-                                                    </div>
-                                                    <h3 className={`text-xl md:text-2xl font-serif font-bold text-primary leading-tight mb-2 ${item.locked ? 'text-muted-foreground' : ''}`}>
-                                                        {item.title}
-                                                    </h3>
+                                            {/* Base Card Shadow & Paper Feel */}
+                                            <div className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-0 relative overflow-hidden flex flex-col h-full border border-zinc-100">
+
+                                                {/* Photo Section (Top Square) */}
+                                                <div className="relative w-full aspect-square bg-zinc-50 overflow-hidden">
+                                                    {/* The uploaded photo */}
+                                                    {item.photoUrl ? (
+                                                        <motion.img
+                                                            initial={{ opacity: 0 }}
+                                                            animate={{ opacity: 1 }}
+                                                            src={item.photoUrl}
+                                                            alt={item.title}
+                                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                        />
+                                                    ) : (
+                                                        /* Camera/Upload Placeholder */
+                                                        <div className="w-full h-full flex flex-col items-center justify-center p-8 text-zinc-300">
+                                                            <div className="w-16 h-16 rounded-full border-2 border-dashed border-zinc-200 flex items-center justify-center mb-4">
+                                                                <Camera className="w-8 h-8 opacity-20" />
+                                                            </div>
+                                                            <button
+                                                                onClick={() => !item.locked && handleUploadClick(item.id)}
+                                                                className="heart-gradient text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg hover:scale-110 active:scale-95 transition-all opacity-0 group-hover:opacity-100"
+                                                            >
+                                                                Add Photo
+                                                            </button>
+                                                        </div>
+                                                    )}
+
+                                                    {/* Polaroid Template Overlay for textures and cutout edges */}
+                                                    <img
+                                                        src="/images/polaroid-template-transparent.png"
+                                                        className="absolute inset-0 w-full h-full pointer-events-none mix-blend-multiply opacity-90 shadow-inner"
+                                                        alt=""
+                                                    />
                                                 </div>
 
-                                                <div className="shrink-0">
-                                                    {item.completed ? (
-                                                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary/20 flex items-center justify-center text-primary border-2 border-primary/10">
-                                                            <CheckCircle2 className="w-6 h-6 md:w-8 md:h-8" />
+                                                {/* Text Section (Bottom White Area) */}
+                                                <div className="p-4 md:p-6 pb-8 text-center flex-1 flex flex-col justify-center min-h-[100px] bg-white relative">
+                                                    {/* Subtle Grain Texture Over Text Area */}
+                                                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
+
+                                                    <div className="relative">
+                                                        <div className="flex items-center justify-center gap-1 mb-1 opacity-40">
+                                                            <span className="text-[9px] font-bold uppercase tracking-widest text-zinc-500">#{item.id}</span>
+                                                            {item.completed && <Sparkles className="w-3 h-3 text-primary animate-pulse" />}
                                                         </div>
-                                                    ) : (
-                                                        <button
-                                                            onClick={() => !item.locked && handleUploadClick(item.id)}
-                                                            disabled={item.locked}
-                                                            className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white shadow-lg transition-all ${item.locked ? 'bg-zinc-200 dark:bg-zinc-800' : 'heart-gradient hover:scale-110 active:scale-95'
-                                                                }`}
-                                                        >
-                                                            <Camera className="w-6 h-6 md:w-7 md:h-7" />
-                                                        </button>
-                                                    )}
+                                                        <h3 className={`text-2xl md:text-3xl font-indie text-zinc-800 leading-tight ${item.locked ? 'text-zinc-400' : ''}`}>
+                                                            {item.title}
+                                                        </h3>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <AnimatePresence>
-                                                {item.photoUrl && (
-                                                    <motion.div
-                                                        initial={{ opacity: 0, scale: 0.9, y: 10 }}
-                                                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                                                        className="mt-6 rounded-3xl overflow-hidden border-4 border-white shadow-2xl rotate-1 group"
-                                                    >
-                                                        <img
-                                                            src={item.photoUrl}
-                                                            alt={item.title}
-                                                            className="w-full h-48 md:h-56 object-cover group-hover:scale-110 transition-transform duration-700"
-                                                        />
-                                                    </motion.div>
-                                                )}
-                                            </AnimatePresence>
+                                            {/* Completion Checkmark Badge (Floating) */}
+                                            {item.completed && (
+                                                <motion.div
+                                                    initial={{ scale: 0 }}
+                                                    animate={{ scale: 1 }}
+                                                    className="absolute -top-3 -right-3 w-10 h-10 rounded-full heart-gradient flex items-center justify-center text-white shadow-lg z-20 border-2 border-white"
+                                                >
+                                                    <CheckCircle2 className="w-6 h-6" />
+                                                </motion.div>
+                                            )}
                                         </motion.div>
                                     </div>
                                 );

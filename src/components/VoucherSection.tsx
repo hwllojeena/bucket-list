@@ -51,7 +51,7 @@ export function VoucherCard({ voucher, isLocked, isUsed, onUse }: VoucherCardPro
                     <span className="font-bold tracking-widest text-xs uppercase text-primary/60">Milestone Reward</span>
                 </div>
 
-                <h3 className="text-2xl font-serif font-bold text-zinc-800 dark:text-zinc-100 mb-2">{voucher.title}</h3>
+                <h3 className="text-2xl font-serif text-zinc-800 dark:text-zinc-100 mb-2">{voucher.title}</h3>
                 <p className="text-sm text-muted-foreground mb-6 h-12 leading-relaxed">
                     {isLocked ? "Complete the next 5 adventures to unlock this gift..." : voucher.description}
                 </p>
