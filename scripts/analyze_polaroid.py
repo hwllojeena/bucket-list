@@ -1,7 +1,7 @@
 from PIL import Image
 import os
 
-input_path = r"d:\REGINA\Web App\bucket-list\public\images\polaroid-template.png"
+input_path = r"d:\REGINA\Web App\bucket-list\public\images\polaroid-template-transparent.png"
 
 def get_dimensions(img_path):
     if not os.path.exists(img_path):

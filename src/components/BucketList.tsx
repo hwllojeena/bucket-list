@@ -121,19 +121,19 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                     >
                                         <motion.div
                                             whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 1 : -1 } : {}}
-                                            className={`relative mx-auto w-full max-w-[400px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+                                            className={`relative mx-auto w-full max-w-[380px] transition-all duration-500 ${item.locked ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                                         >
-                                            {/* Container with square aspect ratio to match the template (640x640) */}
-                                            <div className="relative aspect-square w-full">
+                                            {/* Container with the exact aspect ratio of the cropped template (434x514) */}
+                                            <div className="relative w-full shadow-2xl overflow-hidden" style={{ aspectRatio: '434 / 514' }}>
 
                                                 {/* 1. The Photo (Placed UNDER the frame) */}
                                                 <div
                                                     className="absolute overflow-hidden bg-[#332e2e]"
                                                     style={{
-                                                        top: '14.5%',
-                                                        left: '20.3%',
-                                                        width: '59.7%',
-                                                        height: '59.8%'
+                                                        top: '5.85%',
+                                                        left: '6.00%',
+                                                        width: '88.22%',
+                                                        height: '74.85%'
                                                     }}
                                                 >
                                                     {item.photoUrl ? (
@@ -151,40 +151,40 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                                                     )}
                                                 </div>
 
-                                                {/* 2. The Polaroid Frame (Transparent overlay on top of photo) */}
+                                                {/* 2. The Polaroid Frame (Pristine cleaned template) */}
                                                 <img
                                                     src="/images/polaroid-template-transparent.png"
-                                                    className="absolute inset-0 w-full h-full pointer-events-none z-10 drop-shadow-2xl"
+                                                    className="absolute inset-0 w-full h-full pointer-events-none z-10"
                                                     alt=""
                                                 />
 
-                                                {/* 3. The Task Text (Bottom area, on top of frame) */}
+                                                {/* 3. The Task Text (On top of the white area at the bottom) */}
                                                 <div
                                                     className="absolute z-20 flex items-center justify-center text-center px-4"
                                                     style={{
-                                                        top: '74.5%',
-                                                        left: '16.5%',
-                                                        width: '67.5%',
-                                                        height: '15.5%'
+                                                        top: '80.7%',
+                                                        left: '6.00%',
+                                                        width: '88.22%',
+                                                        height: '19.3%'
                                                     }}
                                                 >
-                                                    <h3 className={`text-2xl md:text-4xl font-indie text-[#ef4444] leading-tight ${item.locked ? 'text-zinc-400' : ''}`}>
+                                                    <h3 className={`text-2xl md:text-3xl lg:text-4xl font-indie text-[#ef4444] leading-tight ${item.locked ? 'text-zinc-400' : ''}`}>
                                                         {item.title}
                                                     </h3>
                                                 </div>
 
-                                                {/* Completion Checkmark Badge */}
+                                                {/* Completion Badge */}
                                                 {item.completed && (
                                                     <motion.div
                                                         initial={{ scale: 0, rotate: -20 }}
                                                         animate={{ scale: 1, rotate: -15 }}
-                                                        className="absolute top-[10%] right-[16%] w-8 h-8 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center text-primary z-30 shadow-sm"
+                                                        className="absolute top-[8%] right-[8%] w-8 h-8 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center text-primary z-30 shadow-sm"
                                                     >
                                                         <CheckCircle2 className="w-5 h-5" />
                                                     </motion.div>
                                                 )}
 
-                                                {/* Hidden Upload Button for Empty slots */}
+                                                {/* Hidden Upload Trigger */}
                                                 {!item.photoUrl && !item.locked && (
                                                     <button
                                                         onClick={() => handleUploadClick(item.id)}

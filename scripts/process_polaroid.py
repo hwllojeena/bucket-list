@@ -12,23 +12,30 @@ def make_transparent(img_path, out_path):
     img = Image.open(img_path)
     img = img.convert("RGBA")
     
+    # Detected white frame boundaries from analyze script:
+    # White Frame: top=63, left=104, width=434, height=514
+    crop_top, crop_left = 63, 104
+    crop_width, crop_height = 434, 514
+    
+    # Crop the image to remove the black outer background
+    img = img.crop((crop_left, crop_top, crop_left + crop_width, crop_top + crop_height))
+    
     datas = img.getdata()
     newData = []
     
-    # Threshold for "black" pixels
-    threshold = 80 # More aggressive to catch noise
+    # Aggressive threshold to catch noise in black areas
+    threshold = 100 
     
     for item in datas:
-        # Check if the pixel is near-black
+        # If it's near-black, make it fully transparent
         if item[0] < threshold and item[1] < threshold and item[2] < threshold:
-            # Set alpha to 0 (fully transparent)
             newData.append((0, 0, 0, 0))
         else:
             newData.append(item)
             
     img.putdata(newData)
     img.save(out_path, "PNG")
-    print(f"Saved transparent image to {out_path}")
+    print(f"Saved cropped and cleaned image to {out_path}")
 
 if __name__ == "__main__":
     make_transparent(input_path, output_path)
