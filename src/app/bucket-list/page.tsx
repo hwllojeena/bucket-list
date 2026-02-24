@@ -28,18 +28,18 @@ export default function SequentialListPage() {
                 </div>
 
                 {/* Header */}
-                <header className="text-center mb-24 relative">
+                <header className="text-center mb-12 md:mb-24 relative">
                     <h1 className="text-6xl md:text-8xl font-serif font-bold mb-6 tracking-tight">
-                        Dear <span className="text-primary italic">Aldo,</span>
+                        Happy <span className="text-primary italic">Anniversary!</span>
                     </h1>
                     <p className="text-muted-foreground max-w-lg mx-auto text-lg opacity-80 backdrop-blur-sm">
-                        This is a visual journey through our 50 adventures. <br />
-                        Scroll down to explore our path...
+                        One year down, forever to go 🤍 <br />
+                        Let’s complete these 50 promises together...
                     </p>
                 </header>
 
                 {/* Progress Bar */}
-                <div className="sticky top-4 z-40 mb-20 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md p-4 rounded-3xl border border-white/20 shadow-lg max-w-2xl mx-auto">
+                <div className="sticky top-4 z-40 mt-6 md:mt-12 mb-12 md:mb-28 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md p-4 rounded-3xl border border-white/20 shadow-lg max-w-2xl mx-auto">
                     <ProgressBar current={completedCount} total={50} />
                 </div>
 

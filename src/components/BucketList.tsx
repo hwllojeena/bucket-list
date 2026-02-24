@@ -99,7 +99,7 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
-                            className={`relative ${islandIndex === milestoneIslands.length - 1 ? 'mb-0' : 'mb-32 md:mb-56'} ${isLocked ? 'grayscale blur-[1px]' : ''}`}
+                            className={`relative ${islandIndex === milestoneIslands.length - 1 ? 'mb-0' : 'mb-16 md:mb-56'} ${isLocked ? 'grayscale blur-[1px]' : ''}`}
                         >
                             {/* Island Header */}
                             <div className="text-center mb-12 relative">
@@ -225,12 +225,12 @@ export default function BucketList({ items, onComplete, completedVoucherIds, onV
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mt-60 pb-10 text-center relative"
+                className="mt-20 md:mt-60 pb-10 text-center relative"
             >
                 {/* Short vertical connector leading to the quote */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-1 h-60 border-l-4 border-dashed border-primary/10 hidden md:block" />
 
-                <p className="font-serif text-xl md:text-2xl text-[#ef4444]/60">
+                <p className="font-sans text-lg text-muted-foreground">
                     and the journey goes on...
                 </p>
             </motion.div>

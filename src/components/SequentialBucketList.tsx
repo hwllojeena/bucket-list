@@ -81,7 +81,7 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
                 {/* Central Path Line */}
                 <div className="absolute left-1/2 top-0 bottom-0 w-1 border-l-4 border-dashed border-primary/10 -translate-x-1/2 hidden md:block" />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 relative z-10 pt-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 md:gap-y-16 relative z-10 pt-10">
                     {items.map((item, index) => {
                         const isEven = index % 2 === 0;
                         return (
@@ -164,11 +164,11 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mt-60 pb-10 text-center relative"
+                className="mt-20 md:mt-60 pb-10 text-center relative"
             >
                 {/* Short vertical connector leading to the quote */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-1 h-60 border-l-4 border-dashed border-primary/10 hidden md:block" />
-                <p className="font-serif text-xl md:text-2xl text-[#ef4444]/60">
+                <p className="font-sans text-lg text-muted-foreground">
                     and the journey goes on...
                 </p>
             </motion.div>
