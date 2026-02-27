@@ -19,34 +19,44 @@ export default function LandingPage() {
                     </div>
                 </div>
 
-                <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 tracking-tight">
-                    Every love story is <span className="text-primary italic">unique.</span>
+                <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 tracking-tight leading-tight">
+                    A private digital space made <br />
+                    <span className="text-primary italic">just for you.</span>
                 </h1>
 
-                <p className="text-lg text-muted-foreground mb-12 max-w-lg mx-auto leading-relaxed">
-                    Create your own beautiful bucket list journey and share it with your special someone.
-                    Premium, interactive, and forever yours.
+                <p className="text-lg text-muted-foreground mb-10 max-w-lg mx-auto leading-relaxed">
+                    A personalized bucket list website perfect for birthdays, anniversaries, or just because you love them.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link
-                        href="/demo"
-                        className="heart-gradient text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all hover:scale-105"
-                    >
-                        See a Demo
-                    </Link>
+                <div className="flex flex-col items-center gap-3 mb-12 text-sm md:text-base font-medium text-muted-foreground/80">
+                    <div className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
+                        <span>Privacy & password protected</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
+                        <span>Custom themes & music</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
+                        <span>Complete adventures with your partner or friends!</span>
+                    </div>
+                </div>
+
+                <div className="flex justify-center">
                     <a
-                        href="https://slowink.id"
+                        href="https://www.tiktok.com/@jeenaworks"
                         target="_blank"
-                        className="px-8 py-4 rounded-full border-2 border-primary/20 text-primary font-bold hover:bg-primary/5 transition-all"
+                        rel="noopener noreferrer"
+                        className="heart-gradient text-white px-10 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all hover:scale-105"
                     >
                         Create Your Own
                     </a>
                 </div>
             </motion.div>
 
-            <footer className="absolute bottom-8 left-0 right-0 text-center text-xs text-muted-foreground uppercase tracking-widest opacity-40">
-                Powered by Slowink
+            <footer className="absolute bottom-8 left-0 right-0 text-center text-xs text-muted-foreground uppercase tracking-widest opacity-40 font-bold">
+                Powered by Jeenaworks
             </footer>
         </main>
     );
