@@ -60,7 +60,7 @@ export default function HeartLock({
                             <defs>
                                 <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stopColor={themeColor} />
-                                    <stop offset="100%" stopColor={themeColor + 'CC'} /> {/* Add some transparency/lightness */}
+                                    <stop offset="100%" stopColor={themeColor} />
                                 </linearGradient>
                                 <filter id="innerShadow">
                                     <feOffset dx="2" dy="2" />
