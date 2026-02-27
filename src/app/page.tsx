@@ -20,8 +20,7 @@ export default function LandingPage() {
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 tracking-tight leading-tight">
-                    A private digital space made <br />
-                    <span className="text-primary italic">just for you.</span>
+                    A private digital space made <span className="text-primary italic">just for you.</span>
                 </h1>
 
                 <p className="text-lg text-muted-foreground mb-10 max-w-lg mx-auto leading-relaxed">
