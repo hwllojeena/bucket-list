@@ -1,9 +1,10 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import ProgressBar from '@/components/ProgressBar';
 import SequentialBucketList from '@/components/SequentialBucketList';
 import { useBucketList } from '@/hooks/useBucketList';
@@ -21,6 +22,14 @@ export default function SequentialListPage() {
         isLoaded,
         error
     } = useBucketList(slug);
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (isLoaded && slug && !localStorage.getItem(`unlocked_${slug}`)) {
+            router.replace(`/${slug}`);
+        }
+    }, [isLoaded, slug, router]);
 
     if (!isLoaded) {
         return (

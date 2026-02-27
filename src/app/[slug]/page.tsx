@@ -13,6 +13,7 @@ export default function PasscodePage() {
   const { tenant, isLoaded, error } = useBucketList(slug);
 
   const handleUnlock = () => {
+    localStorage.setItem(`unlocked_${slug}`, 'true');
     router.push(`/${slug}/bucket-list`);
   };
 
