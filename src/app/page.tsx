@@ -24,7 +24,7 @@ export default function LandingPage() {
                 </h1>
 
                 <p className="text-lg text-muted-foreground mb-12 max-w-lg mx-auto leading-relaxed">
-                    A personalized bucket list website perfect for birthdays, anniversaries, or just because you love them.
+                    Personalized bucket list websites crafted for birthdays, anniversaries, or just because they mean everything to you.
                 </p>
 
                 <div className="flex justify-center">
