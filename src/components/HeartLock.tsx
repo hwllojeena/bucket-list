@@ -2,14 +2,21 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronUp, ChevronDown, Lock, Unlock, Sparkles } from 'lucide-react';
+import { ChevronUp, ChevronDown, Sparkles } from 'lucide-react';
 
 interface HeartLockProps {
     onUnlock: () => void;
     correctCombination: string;
+    lockText?: string;
+    themeColor?: string;
 }
 
-export default function HeartLock({ onUnlock, correctCombination }: HeartLockProps) {
+export default function HeartLock({
+    onUnlock,
+    correctCombination,
+    lockText = "The Day We Got Together",
+    themeColor = "#d4145a"
+}: HeartLockProps) {
     const [digits, setDigits] = useState([0, 0, 0, 0]);
     const [isError, setIsError] = useState(false);
     const [isUnlocked, setIsUnlocked] = useState(false);
@@ -52,8 +59,8 @@ export default function HeartLock({ onUnlock, correctCombination }: HeartLockPro
                         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full translate-y-10">
                             <defs>
                                 <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="#d4145a" />
-                                    <stop offset="100%" stopColor="#ff4d8d" />
+                                    <stop offset="0%" stopColor={themeColor} />
+                                    <stop offset="100%" stopColor={themeColor + 'CC'} /> {/* Add some transparency/lightness */}
                                 </linearGradient>
                                 <filter id="innerShadow">
                                     <feOffset dx="2" dy="2" />
@@ -74,7 +81,9 @@ export default function HeartLock({ onUnlock, correctCombination }: HeartLockPro
 
                         {/* Text overlay */}
                         <div className="absolute inset-0 flex flex-col items-center justify-center pt-16">
-                            <h2 className="text-white text-lg font-serif italic mb-6 drop-shadow-md">The Day We Got Together</h2>
+                            <h2 className="text-white text-lg font-serif italic mb-6 drop-shadow-md px-12 text-center">
+                                {lockText}
+                            </h2>
 
                             {/* Combination Dials */}
                             <div className="flex gap-2">
@@ -92,7 +101,8 @@ export default function HeartLock({ onUnlock, correctCombination }: HeartLockPro
                                                 key={digit}
                                                 initial={{ y: -5, opacity: 0 }}
                                                 animate={{ y: 0, opacity: 1 }}
-                                                className="text-2xl font-bold text-primary"
+                                                className="text-2xl font-bold"
+                                                style={{ color: themeColor }}
                                             >
                                                 {digit}
                                             </motion.span>
@@ -120,7 +130,7 @@ export default function HeartLock({ onUnlock, correctCombination }: HeartLockPro
                         exit={{ opacity: 0 }}
                         className="flex flex-col items-center gap-2 mt-4"
                     >
-                        <div className="flex items-center gap-2 text-primary font-bold">
+                        <div className="flex items-center gap-2 font-bold" style={{ color: themeColor }}>
                             <Sparkles className="animate-pulse" />
                             <span>Correct! Unlocking...</span>
                         </div>

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 
 export interface BucketListItem {
-    id: number;
+    id: string | number;
     title: string;
     completed: boolean;
     photoUrl?: string | null;
@@ -14,14 +14,19 @@ export interface BucketListItem {
 
 interface SequentialBucketListProps {
     items: BucketListItem[];
-    onComplete: (id: number, photo: string) => void;
+    onComplete: (id: string | number, photo: string) => void;
+    themeColor?: string;
 }
 
-export default function SequentialBucketList({ items, onComplete }: SequentialBucketListProps) {
-    const [uploadingId, setUploadingId] = useState<number | null>(null);
+export default function SequentialBucketList({
+    items,
+    onComplete,
+    themeColor = "#ef4444"
+}: SequentialBucketListProps) {
+    const [uploadingId, setUploadingId] = useState<string | number | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleUploadClick = (id: number) => {
+    const handleUploadClick = (id: string | number) => {
         setUploadingId(id);
         fileInputRef.current?.click();
     };
@@ -93,12 +98,12 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
                                 `}
                             >
                                 <motion.div
-                                    initial={{ opacity: 0, y: 30, rotate: (item.id % 7 - 3) * 0.2 }}
+                                    initial={{ opacity: 0, y: 30, rotate: (index % 7 - 3) * 0.2 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.6, delay: (Math.floor(index / 2) % 5) * 0.1 + (index % 2 === 0 ? 0 : 0.15) }}
-                                    animate={{ rotate: (item.id % 7 - 3) * 0.2 }}
-                                    whileHover={!item.locked ? { scale: 1.05, rotate: item.id % 2 === 0 ? 1 : -1 } : {}}
+                                    animate={{ rotate: (index % 7 - 3) * 0.2 }}
+                                    whileHover={!item.locked ? { scale: 1.05, rotate: index % 2 === 0 ? 1 : -1 } : {}}
                                     className={`relative w-full max-w-[420px] transition-all duration-500 ${item.locked ? 'grayscale blur-[1px] pointer-events-none' : ''}`}
                                 >
                                     {/* Polaroid Card */}
@@ -128,7 +133,10 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
 
                                             {/* Title Area */}
                                             <div className="mt-8 md:mt-12 flex-1 flex items-center justify-center text-center px-4">
-                                                <h3 className={`text-xl md:text-2xl font-indie text-[#ef4444] leading-tight break-words ${item.locked ? 'text-zinc-400' : ''}`}>
+                                                <h3
+                                                    className={`text-xl md:text-2xl font-indie leading-tight break-words ${item.locked ? 'text-zinc-400' : ''}`}
+                                                    style={{ color: item.locked ? undefined : themeColor }}
+                                                >
                                                     {item.title}
                                                 </h3>
                                             </div>
@@ -139,7 +147,12 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
                                             <motion.div
                                                 initial={{ scale: 0, rotate: -20 }}
                                                 animate={{ scale: 1, rotate: -15 }}
-                                                className="absolute top-2 right-2 w-10 h-10 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center text-primary z-20 shadow-sm"
+                                                className="absolute top-2 right-2 w-10 h-10 rounded-full flex items-center justify-center z-20 shadow-sm border-2"
+                                                style={{
+                                                    backgroundColor: themeColor + '33',
+                                                    borderColor: themeColor + '4D',
+                                                    color: themeColor
+                                                }}
                                             >
                                                 <CheckCircle2 className="w-6 h-6" />
                                             </motion.div>
@@ -164,7 +177,7 @@ export default function SequentialBucketList({ items, onComplete }: SequentialBu
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mt-20 md:mt-60 pb-10 text-center relative"
+                className="mt-20 md:mt-60 pt-12 pb-10 text-center relative"
             >
                 {/* Short vertical connector leading to the quote */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-1 h-60 border-l-4 border-dashed border-primary/10 hidden md:block" />
