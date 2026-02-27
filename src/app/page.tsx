@@ -23,24 +23,9 @@ export default function LandingPage() {
                     A private digital space made <span className="text-primary italic">just for you.</span>
                 </h1>
 
-                <p className="text-lg text-muted-foreground mb-10 max-w-lg mx-auto leading-relaxed">
+                <p className="text-lg text-muted-foreground mb-12 max-w-lg mx-auto leading-relaxed">
                     A personalized bucket list website perfect for birthdays, anniversaries, or just because you love them.
                 </p>
-
-                <div className="flex flex-col items-center gap-3 mb-12 text-sm md:text-base font-medium text-muted-foreground/80">
-                    <div className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
-                        <span>Privacy & password protected</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
-                        <span>Custom themes & music</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
-                        <span>Complete adventures with your partner or friends!</span>
-                    </div>
-                </div>
 
                 <div className="flex justify-center">
                     <a
