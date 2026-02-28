@@ -86,28 +86,12 @@ export function useBucketList(slug: string | string[]) {
     };
 
     const completedCount = items.filter(item => item.completed).length;
-    const itemsCount = items.length;
-
-    // Milestones are every 5 items
-    const milestoneSize = 5;
-    const currentMilestoneIndex = Math.min(Math.floor(completedCount / milestoneSize), Math.max(0, Math.floor((itemsCount - 1) / milestoneSize)));
-
-    const itemsWithLock = items.map((item, index) => ({
-        ...item,
-        locked: Math.floor(index / milestoneSize) > currentMilestoneIndex
-    }));
-
-    const isCurrentMilestoneCompleted = items.length > 0 && items
-        .slice(currentMilestoneIndex * milestoneSize, (currentMilestoneIndex + 1) * milestoneSize)
-        .every(i => i.completed);
 
     return {
-        items: itemsWithLock,
+        items,
         tenant,
         completedCount,
         totalCount: items.length,
-        currentMilestone: currentMilestoneIndex,
-        isCurrentMilestoneCompleted,
         handleComplete,
         isLoaded,
         error

@@ -10,7 +10,6 @@ export interface BucketListItem {
     title: string;
     completed: boolean;
     photoUrl?: string | null;
-    locked?: boolean;
 }
 
 interface SequentialBucketListProps {
@@ -140,8 +139,8 @@ export default function SequentialBucketList({
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.6, delay: (Math.floor(index / 2) % 5) * 0.1 + (index % 2 === 0 ? 0 : 0.15) }}
                                     animate={{ rotate: (index % 7 - 3) * 0.2 }}
-                                    whileHover={!item.locked ? { scale: 1.05, rotate: index % 2 === 0 ? 1 : -1 } : {}}
-                                    className={`relative w-full max-w-[420px] transition-all duration-500 ${item.locked ? 'grayscale blur-[1px] pointer-events-none' : ''}`}
+                                    whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 1 : -1 }}
+                                    className="relative w-full max-w-[420px] transition-all duration-500"
                                 >
                                     {/* Polaroid Card */}
                                     <div className="bg-[#fdfdfd] shadow-[0_20px_60px_rgba(0,0,0,0.12)] p-4 md:p-5 pb-8 md:pb-12 flex flex-col group relative overflow-hidden border border-zinc-100/50 rounded-sm">
@@ -149,7 +148,7 @@ export default function SequentialBucketList({
                                         {/* Paper Texture */}
                                         <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
 
-                                        <div className={`flex flex-col h-full ${item.locked ? 'opacity-40' : ''}`}>
+                                        <div className="flex flex-col h-full">
                                             {/* Photo Area */}
                                             <div className="relative w-full aspect-square bg-[#332e2e] overflow-hidden shadow-inner flex items-center justify-center">
                                                 <AnimatePresence mode="wait">
@@ -179,7 +178,7 @@ export default function SequentialBucketList({
                                                             initial={{ opacity: 0 }}
                                                             animate={{ opacity: 1 }}
                                                             className="w-full h-full flex items-center justify-center p-8 text-center cursor-pointer"
-                                                            onClick={() => !item.locked && handleUploadClick(item.id)}
+                                                            onClick={() => handleUploadClick(item.id)}
                                                         >
                                                             <span className="text-xs font-sans tracking-tight text-white/20 uppercase group-hover:text-white/40 transition-colors">upload photo here</span>
                                                         </motion.div>
@@ -191,8 +190,8 @@ export default function SequentialBucketList({
                                             {/* Title Area */}
                                             <div className="mt-8 md:mt-12 flex-1 flex items-center justify-center text-center px-4">
                                                 <h3
-                                                    className={`text-xl md:text-2xl font-indie leading-tight break-words ${item.locked ? 'text-zinc-400' : ''}`}
-                                                    style={{ color: item.locked ? undefined : themeColor }}
+                                                    className="text-xl md:text-2xl font-indie leading-tight break-words"
+                                                    style={{ color: themeColor }}
                                                 >
                                                     {item.title}
                                                 </h3>
@@ -215,12 +214,10 @@ export default function SequentialBucketList({
                                             </motion.div>
                                         )}
 
-                                        {!item.locked && (
-                                            <button
-                                                onClick={() => handleUploadClick(item.id)}
-                                                className="absolute inset-0 w-full h-full z-40 opacity-0 cursor-pointer"
-                                            />
-                                        )}
+                                        <button
+                                            onClick={() => handleUploadClick(item.id)}
+                                            className="absolute inset-0 w-full h-full z-40 opacity-0 cursor-pointer"
+                                        />
                                     </div>
                                 </motion.div>
                             </div>
