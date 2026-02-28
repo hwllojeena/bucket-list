@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle2, Loader2 } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export interface BucketListItem {
     id: string | number;
@@ -24,6 +25,7 @@ export default function SequentialBucketList({
     themeColor = "#ef4444"
 }: SequentialBucketListProps) {
     const [uploadingId, setUploadingId] = useState<string | number | null>(null);
+    const [isUploading, setIsUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleUploadClick = (id: string | number) => {
@@ -31,44 +33,78 @@ export default function SequentialBucketList({
         fileInputRef.current?.click();
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file && uploadingId !== null) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 600;
-                    const MAX_HEIGHT = 600;
-                    let width = img.width;
-                    let height = img.height;
+            setIsUploading(true);
+            try {
+                const reader = new FileReader();
+                const imageDataUrl = await new Promise<string>((resolve) => {
+                    reader.onload = (event) => resolve(event.target?.result as string);
+                    reader.readAsDataURL(file);
+                });
 
-                    if (width > height) {
-                        if (width > MAX_WIDTH) {
-                            height *= MAX_WIDTH / width;
-                            width = MAX_WIDTH;
+                const compressedBlob = await new Promise<Blob>((resolve) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 1200; // Increased quality for storage
+                        const MAX_HEIGHT = 1200;
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
                         }
-                    } else {
-                        if (height > MAX_HEIGHT) {
-                            width *= MAX_HEIGHT / height;
-                            height = MAX_HEIGHT;
-                        }
-                    }
 
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx?.drawImage(img, 0, 0, width, height);
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx?.drawImage(img, 0, 0, width, height);
+                        canvas.toBlob((blob) => resolve(blob!), 'image/webp', 0.8);
+                    };
+                    img.src = imageDataUrl;
+                });
 
-                    // WebP is much more efficient than JPEG for the same quality
-                    const compressedDataUrl = canvas.toDataURL('image/webp', 0.6);
-                    onComplete(uploadingId, compressedDataUrl);
-                    setUploadingId(null);
-                };
-                img.src = event.target?.result as string;
-            };
-            reader.readAsDataURL(file);
+                // Upload to Supabase Storage
+                const fileName = `${uploadingId}_${Date.now()}.webp`;
+                const filePath = `task_photos/${fileName}`;
+
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from('photos')
+                    .upload(filePath, compressedBlob, {
+                        contentType: 'image/webp',
+                        upsert: true
+                    });
+
+                if (uploadError) throw uploadError;
+
+                // Get Public URL
+                const { data: { publicUrl } } = supabase.storage
+                    .from('photos')
+                    .getPublicUrl(filePath);
+
+                onComplete(uploadingId, publicUrl);
+            } catch (error: any) {
+                console.error("Upload failed details:", error);
+
+                let errorMessage = "Upload failed. ";
+                if (error.message) errorMessage += error.message;
+
+                alert(`${errorMessage}\n\nCheck if: \n1. Bucket 'photos' is set to PUBLIC. \n2. RLS policies allow INSERT/UPDATE on storage.objects.`);
+            } finally {
+                setIsUploading(false);
+                setUploadingId(null);
+                if (fileInputRef.current) fileInputRef.current.value = '';
+            }
         }
     };
 
@@ -116,19 +152,39 @@ export default function SequentialBucketList({
                                         <div className={`flex flex-col h-full ${item.locked ? 'opacity-40' : ''}`}>
                                             {/* Photo Area */}
                                             <div className="relative w-full aspect-square bg-[#332e2e] overflow-hidden shadow-inner flex items-center justify-center">
-                                                {item.photoUrl ? (
-                                                    <motion.img
-                                                        initial={{ opacity: 0 }}
-                                                        animate={{ opacity: 1 }}
-                                                        src={item.photoUrl}
-                                                        alt={item.title}
-                                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                                    />
-                                                ) : (
-                                                    <div className="w-full h-full flex items-center justify-center p-8 text-center cursor-pointer" onClick={() => !item.locked && handleUploadClick(item.id)}>
-                                                        <span className="text-xs font-sans tracking-tight text-white/20 uppercase group-hover:text-white/40 transition-colors">upload photo here</span>
-                                                    </div>
-                                                )}
+                                                <AnimatePresence mode="wait">
+                                                    {isUploading && uploadingId === item.id ? (
+                                                        <motion.div
+                                                            key="loading"
+                                                            initial={{ opacity: 0 }}
+                                                            animate={{ opacity: 1 }}
+                                                            exit={{ opacity: 0 }}
+                                                            className="flex flex-col items-center gap-2"
+                                                        >
+                                                            <Loader2 className="w-8 h-8 text-white/50 animate-spin" />
+                                                            <span className="text-[10px] font-sans text-white/30 uppercase tracking-widest">Uploading...</span>
+                                                        </motion.div>
+                                                    ) : item.photoUrl ? (
+                                                        <motion.img
+                                                            key="photo"
+                                                            initial={{ opacity: 0 }}
+                                                            animate={{ opacity: 1 }}
+                                                            src={item.photoUrl}
+                                                            alt={item.title}
+                                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                        />
+                                                    ) : (
+                                                        <motion.div
+                                                            key="placeholder"
+                                                            initial={{ opacity: 0 }}
+                                                            animate={{ opacity: 1 }}
+                                                            className="w-full h-full flex items-center justify-center p-8 text-center cursor-pointer"
+                                                            onClick={() => !item.locked && handleUploadClick(item.id)}
+                                                        >
+                                                            <span className="text-xs font-sans tracking-tight text-white/20 uppercase group-hover:text-white/40 transition-colors">upload photo here</span>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
                                                 <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none opacity-40" />
                                             </div>
 
